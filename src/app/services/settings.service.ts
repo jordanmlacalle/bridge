@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SongResult } from '../shared/interfaces/song-result.interface';
 import { SortType } from '../shared/sort-type';
 import { RemoteService } from './remote.service';
+import { Themes } from '../../assets/themes/themes';
 
 type ViewMode = 'details' | 'grid' | 'compact';
 
@@ -12,14 +13,19 @@ interface LocalSettings {
   lastQuery: string;
   from: number;
   chartLibraryDirectory: string;
-  theme: string;
+  theme: Theme;
+}
+
+interface Theme {
+  name: string,
+  id: string
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
-  readonly builtinThemes = ['Default', 'Dark'];
+  readonly builtinThemes = Themes;
 
   localSettings: LocalSettings;
 
@@ -62,14 +68,14 @@ export class SettingsService {
     this.remoteService.sendIPCSync('save-settings', this.localSettings);
   }
 
-  changeTheme(theme: string) {
+  changeTheme(theme: Theme) {
     if (this.currentThemeLink) this.currentThemeLink.remove();
-    if (theme === 'Default') return;
+    if (theme.id === 'Default') return;
 
     const link = document.createElement('link');
     link.type = 'text/css';
     link.rel = 'stylesheet';
-    link.href = `assets/themes/${theme}.css`;
+    link.href = `assets/themes/${theme.id}.css`;
     this.currentThemeLink = document.head.appendChild(link);
   }
 
@@ -110,7 +116,7 @@ export class SettingsService {
   }
 
   get theme() { return this.localSettings.theme; }
-  set theme(newValue: string) {
+  set theme(newValue: Theme) {
     this.localSettings.theme = newValue;
     this.changeTheme(newValue);
     this.saveSettings();
