@@ -29,7 +29,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     $(this.themeDropdown.nativeElement).dropdown({
       onChange: (value: string, text: string) => {
-        this.settingService.theme = text;
+        //this.settingService.theme = text;
       }
     });
   }
@@ -69,5 +69,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   openLibraryDirectory() {
     this.remoteService.remote.shell.showItemInFolder(this.settingService.chartLibraryDirectory);
+  }
+
+  updateTheme(theme) {
+    this.settingService.theme = theme;
   }
 }

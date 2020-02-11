@@ -20,6 +20,6 @@
   <i class="dropdown icon"></i>
   <div class="default text">Default</div>
   <div class="menu">
-    <div class="item" [attr.data-value]="i" *ngFor="let theme of settingService.builtinThemes; let i = index">{{theme}}</div>
+    <div class="item" [attr.data-value]="i" *ngFor="let theme of settingService.builtinThemes; let i = index" (click)="updateTheme(theme)">{{theme.name}}</div>
   </div>
 </div>
