@@ -1,7 +1,7 @@
-import { themes } from './themes';
+import { Themes } from '../../themes/themes';
 
 export const initialSettings = {
   browseSortType: 0,
   browseViewMode: 'details',
-  theme: themes[0]
+  theme: Themes[0]
 };

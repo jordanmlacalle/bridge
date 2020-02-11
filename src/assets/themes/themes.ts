@@ -1,4 +1,4 @@
-export const themes = [{
+export const Themes = [{
     name: 'Default',
     id: 'Default'
 }, {
